@@ -28,7 +28,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start:server": "ts-node server/server.js",
+    "start:server": "ts-node ../server/server.mjs",
     "start:dev": "concurrently \"npm start\" \"npm run start:server\""
   },
   "eslintConfig": {
