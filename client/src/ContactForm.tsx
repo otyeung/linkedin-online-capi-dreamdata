@@ -3,6 +3,10 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import axios from 'axios'
 import Modal from './Modal' // Assuming you have a Modal component
+//import dotenv from 'dotenv'
+
+//dotenv.config()
+//const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5001'
 
 const initialFormData = {
   li_fat_id: '123456',
