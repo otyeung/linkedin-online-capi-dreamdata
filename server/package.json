@@ -4,12 +4,12 @@
   "author": "Dennis Yeung (https://www.linkedin.com/in/dennisyeung/)",
   "license": "Apache-2.0",
   "description": "",
-  "type": "module",
-  "main": "index.js",
+  "type": "commonjs",
+  "main": "api/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node index.js",
-    "start": "nodemon index.js"
+    "server": "node api/index.js",
+    "start": "nodemon api/index.js"
   },
   "keywords": [],
   "dependencies": {
