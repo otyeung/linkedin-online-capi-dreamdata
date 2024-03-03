@@ -1,4 +1,4 @@
-// server.js
+// api/index.js
 import express from 'express'
 import bodyParser from 'body-parser'
 import axios from 'axios'

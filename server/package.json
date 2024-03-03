@@ -5,10 +5,10 @@
   "license": "Apache-2.0",
   "description": "",
   "type": "module",
-  "main": "server.mjs",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.mjs"
+    "start": "nodemon --experimental-modules api/index.js"
   },
   "keywords": [],
   "dependencies": {
