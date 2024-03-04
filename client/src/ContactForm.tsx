@@ -100,7 +100,7 @@ const ContactForm: React.FC = () => {
 
           <label>
             li_fat_id:
-            <span>{formData.li_fat_id}</span>
+            <span className='red-text'>{formData.li_fat_id}</span>
           </label>
 
           <label>

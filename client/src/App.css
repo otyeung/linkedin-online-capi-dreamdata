@@ -84,3 +84,7 @@
   padding: 8px; /* Adjust padding as needed for the desired size */
   font-size: 14px; /* Adjust font size as needed */
 }
+
+.red-text {
+  color: red;
+}
