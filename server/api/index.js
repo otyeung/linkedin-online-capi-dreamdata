@@ -2,13 +2,13 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const axios = require('axios')
 const cors = require('cors')
-const dotenv = require('dotenv')
+//const dotenv = require('dotenv')
 
-dotenv.config()
+//dotenv.config()
 
 const app = express()
-const PORT = process.env.PORT || 5001
-const HOST = process.env.HOST || 'localhost'
+//const PORT = process.env.PORT || 5001
+//const HOST = process.env.HOST || 'localhost'
 
 const googleFormFields = {
   li_fat_id: '844537053',
@@ -25,7 +25,7 @@ const googleFormFields = {
 }
 
 const whitelist = ['*']
-
+/*
 app.use((req, res, next) => {
   const origin = req.get('referer')
   const isWhitelisted = whitelist.find((w) => origin && origin.includes(w))
@@ -44,7 +44,19 @@ app.use((req, res, next) => {
   // Pass to next layer of middleware
   if (req.method === 'OPTIONS') res.sendStatus(200)
   else next()
-})
+}) */
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      const isWhitelisted =
+        whitelist.includes('*') || whitelist.includes(origin)
+      callback(null, isWhitelisted)
+    },
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  })
+)
 
 //app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -52,7 +64,8 @@ app.use(bodyParser.json())
 
 // GET route for the root endpoint
 app.get('/', (req, res) => {
-  res.send(`Server is running on http://${HOST}:${PORT}`)
+  //  res.send(`Server is running on http://${HOST}:${PORT}`)
+  res.send(`Server is running on port 4000.`) // Assuming your server is running on port 3000
 })
 
 // POST route for form submission
@@ -86,6 +99,11 @@ app.post('/submit-form', async (req, res) => {
   }
 })
 
-app.listen(PORT, HOST, () => {
+/* app.listen(PORT, HOST, () => {
   console.log(`Server is running on http://${HOST}:${PORT}`)
 })
+ */
+
+app.listen(4000, () => console.log('Server ready on port 4000.'))
+
+module.exports = app
