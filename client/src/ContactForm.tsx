@@ -3,10 +3,6 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import axios from 'axios'
 import Modal from './Modal' // Assuming you have a Modal component
-//import dotenv from 'dotenv'
-
-//dotenv.config()
-//const SERVER_URL = process.env.SERVER_URL || 'http://localhost:5001'
 
 const initialFormData = {
   li_fat_id: '123456',
@@ -87,16 +83,6 @@ const ContactForm: React.FC = () => {
       <div className='App'>
         <form className='centered-form' onSubmit={handleSubmit}>
           <h1 className='form-title'>LinkedIn Online CAPI with Dreamdata</h1>
-
-          {/*           <label>
-            li_fat_id:
-            <input
-              type='text'
-              name='li_fat_id'
-              value={formData.li_fat_id}
-              onChange={handleChange}
-            />
-          </label> */}
 
           <label>
             li_fat_id:
