@@ -2,8 +2,7 @@
 
 ## Start Server indpendently
 
-Modify port number and host in "server/.env", default server is 'localhost' and port '5001'.
-Open terminal in your apps directory, run
+Server runs on port 4000 locally. Open terminal in your apps directory, run
 
 ```
 cd server
@@ -13,7 +12,7 @@ npm start
 
 ## Start Client indpendently
 
-Modify REACT_APP_SERVER_URL in "server/.env", default is "http://localhost:5001"
+Modify REACT_APP_SERVER_URL in "server/.env", default is "http://localhost:4000"
 Client runs on port 3000.
 Open terminal in your apps directory, run
 
