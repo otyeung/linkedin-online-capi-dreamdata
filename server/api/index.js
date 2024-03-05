@@ -18,7 +18,7 @@ const googleFormFields = {
   oracleMoatId: '48487709',
 }
 
-const whitelist = ['*']
+const whitelist = ['https://linkedin-online-capi-dreamdata.vercel.11app']
 
 const corsOptions = {
   origin: function (origin, callback) {
