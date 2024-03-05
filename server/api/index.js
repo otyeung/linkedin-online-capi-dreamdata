@@ -20,18 +20,24 @@ const googleFormFields = {
 
 const whitelist = ['*']
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      const isWhitelisted =
-        whitelist.includes('*') || whitelist.includes(origin)
-      callback(null, isWhitelisted)
-    },
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-  })
-)
+const corsOptions = {
+  origin: function (origin, callback) {
+    const isWhitelisted = whitelist.includes('*') || whitelist.includes(origin)
+    callback(null, isWhitelisted)
+  },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204, // Some legacy browsers choke on a 204 response.
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'Access-Control-Allow-Headers',
+    'X-Requested-With',
+  ], // Add headers you want to allow here.
+  exposedHeaders: ['Content-Type'], // Add headers that you want to expose to the frontend.
+}
 
+app.use(cors(corsOptions))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
