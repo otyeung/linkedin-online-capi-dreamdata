@@ -20,7 +20,6 @@ const initialFormData = {
 
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState(initialFormData)
-
   const [submissionStatus, setSubmissionStatus] = useState<string | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -55,9 +54,8 @@ const ContactForm: React.FC = () => {
     e.preventDefault()
 
     try {
-      //      await axios.post('http://localhost:5001/submit-form', formData)
       await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/submit-form`,
+        `${process.env.REACT_APP_SERVER_URL}/submit-google-form`,
         formData
       )
       console.log('Form submitted successfully')
@@ -76,6 +74,22 @@ const ContactForm: React.FC = () => {
 
   const closeModal = () => {
     setIsModalOpen(false)
+  }
+
+  const handleResetForm = () => {
+    setFormData({
+      ...formData,
+      lastName: '',
+      firstName: '',
+      email: '',
+      title: '',
+      company: '',
+      countryCode: '',
+      currency: '',
+      value: '',
+      acxiomId: '',
+      oracleMoatId: '',
+    })
   }
 
   return (
@@ -190,6 +204,10 @@ const ContactForm: React.FC = () => {
           </label>
 
           <button type='submit'>Submit</button>
+          <button type='button' onClick={handleResetForm}>
+            Reset Form
+          </button>
+
           <p>
             All leads are submitted in this{' '}
             <a
