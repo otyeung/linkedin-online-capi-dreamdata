@@ -2,13 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const axios = require('axios')
 const cors = require('cors')
-//const dotenv = require('dotenv')
-
-//dotenv.config()
-
 const app = express()
-//const PORT = process.env.PORT || 5001
-//const HOST = process.env.HOST || 'localhost'
 
 const googleFormFields = {
   li_fat_id: '844537053',
@@ -25,26 +19,6 @@ const googleFormFields = {
 }
 
 const whitelist = ['*']
-/*
-app.use((req, res, next) => {
-  const origin = req.get('referer')
-  const isWhitelisted = whitelist.find((w) => origin && origin.includes(w))
-  if (isWhitelisted) {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader(
-      'Access-Control-Allow-Methods',
-      'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-    )
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'X-Requested-With,Content-Type,Authorization'
-    )
-    res.setHeader('Access-Control-Allow-Credentials', true)
-  }
-  // Pass to next layer of middleware
-  if (req.method === 'OPTIONS') res.sendStatus(200)
-  else next()
-}) */
 
 app.use(
   cors({
@@ -58,18 +32,16 @@ app.use(
   })
 )
 
-//app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // GET route for the root endpoint
 app.get('/', (req, res) => {
-  //  res.send(`Server is running on http://${HOST}:${PORT}`)
-  res.send(`Server is running on port 4000.`) // Assuming your server is running on port 3000
+  res.send(`Server is running on port 4000.`) // Assuming your server is running on port 4000
 })
 
 // POST route for form submission
-app.post('/submit-form', async (req, res) => {
+app.post('/submit-google-form', async (req, res) => {
   try {
     const formData = req.body
     const formDataEntries = Object.entries(formData)
@@ -98,11 +70,6 @@ app.post('/submit-form', async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal Server Error' })
   }
 })
-
-/* app.listen(PORT, HOST, () => {
-  console.log(`Server is running on http://${HOST}:${PORT}`)
-})
- */
 
 app.listen(4000, () => console.log('Server ready on port 4000.'))
 
