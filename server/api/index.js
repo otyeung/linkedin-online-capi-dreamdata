@@ -18,7 +18,8 @@ const googleFormFields = {
   oracleMoatId: '48487709',
 }
 
-const whitelist = ['https://linkedin-online-capi-dreamdata.vercel.11app']
+// Add supported origin domain to whitelist, or use *
+const whitelist = ['https://linkedin-online-capi-dreamdata.vercel.app']
 
 const corsOptions = {
   origin: function (origin, callback) {
