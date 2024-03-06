@@ -19,7 +19,10 @@ const googleFormFields = {
 }
 
 // Add supported origin domain to whitelist, or use *
-const whitelist = ['https://linkedin-online-capi-dreamdata.vercel.app']
+const whitelist = [
+  'https://linkedin-online-capi-dreamdata.vercel.app',
+  'http://localhost:3000',
+]
 
 const corsOptions = {
   origin: function (origin, callback) {
