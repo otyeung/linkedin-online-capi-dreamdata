@@ -44,8 +44,8 @@ const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState(initialFormData)
   const [submissionStatus, setSubmissionStatus] = useState<string | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-
-  useEffect(() => {
+  const [effectExecuted, setEffectExecuted] = useState(false)
+  /*   useEffect(() => {
     const li_fat_id =
       (typeof window !== 'undefined' &&
         new URLSearchParams(window.location.search).get('li_fat_id')) ||
@@ -60,7 +60,31 @@ const ContactForm: React.FC = () => {
 
     window.analytics.track('Page View')
     //  }, []) // Empty dependency array ensures this runs only once when the component mounts
-  }, [formData.li_fat_id]) // Dependency on formData.li_fat_id
+  }, [formData.li_fat_id]) // Dependency on formData.li_fat_id */
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const li_fat_id =
+        (typeof window !== 'undefined' &&
+          new URLSearchParams(window.location.search).get('li_fat_id')) ||
+        (typeof document !== 'undefined' && getCookie('li_fat_id')) ||
+        ''
+
+      if (li_fat_id && !effectExecuted) {
+        setFormData((prevData) => ({ ...prevData, li_fat_id }))
+
+        window.analytics.identify(li_fat_id, {
+          li_fat_id: li_fat_id,
+        })
+
+        window.analytics.track('Page View')
+
+        setEffectExecuted(true)
+      }
+    }
+
+    fetchData()
+  }, [effectExecuted]) // Dependency on effectExecuted
 
   // Begin Cookie routine
   // getcookie function
