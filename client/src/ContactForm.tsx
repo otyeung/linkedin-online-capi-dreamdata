@@ -1,5 +1,5 @@
 // src/ContactForm.tsx
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './App.css'
 import axios from 'axios'
 import Modal from './Modal' // Assuming you have a Modal component
@@ -44,23 +44,7 @@ const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState(initialFormData)
   const [submissionStatus, setSubmissionStatus] = useState<string | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [effectExecuted, setEffectExecuted] = useState(false)
-  /*   useEffect(() => {
-    const li_fat_id =
-      (typeof window !== 'undefined' &&
-        new URLSearchParams(window.location.search).get('li_fat_id')) ||
-      (typeof document !== 'undefined' && getCookie('li_fat_id')) ||
-      ''
-
-    setFormData((prevData) => ({ ...prevData, li_fat_id })) // Using functional update
-
-    window.analytics.identify(li_fat_id, {
-      li_fat_id: li_fat_id,
-    })
-
-    window.analytics.track('Page View')
-    //  }, []) // Empty dependency array ensures this runs only once when the component mounts
-  }, [formData.li_fat_id]) // Dependency on formData.li_fat_id */
+  const isAnalyticsExecuted = useRef(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,7 +54,7 @@ const ContactForm: React.FC = () => {
         (typeof document !== 'undefined' && getCookie('li_fat_id')) ||
         ''
 
-      if (li_fat_id && !effectExecuted) {
+      if (li_fat_id && !isAnalyticsExecuted.current) {
         setFormData((prevData) => ({ ...prevData, li_fat_id }))
 
         window.analytics.identify(li_fat_id, {
@@ -79,12 +63,12 @@ const ContactForm: React.FC = () => {
 
         window.analytics.track('Page View')
 
-        setEffectExecuted(true)
+        isAnalyticsExecuted.current = true
       }
     }
 
     fetchData()
-  }, [effectExecuted]) // Dependency on effectExecuted
+  }, []) // Empty dependency array ensures it runs only once
 
   // Begin Cookie routine
   // getcookie function
