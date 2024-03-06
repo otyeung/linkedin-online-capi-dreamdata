@@ -4,7 +4,29 @@ import './App.css'
 import axios from 'axios'
 import Modal from './Modal' // Assuming you have a Modal component
 
-const initialFormData = {
+// declare analytics function in window object to avoid typescript error
+declare global {
+  interface Window {
+    analytics: any
+  }
+}
+
+// Define type/interface for form data
+interface FormData {
+  li_fat_id: string
+  lastName: string
+  firstName: string
+  email: string
+  title: string
+  company: string
+  countryCode: string
+  currency: string
+  value: string
+  acxiomId: string
+  oracleMoatId: string
+}
+
+const initialFormData: FormData = {
   li_fat_id: '123456',
   lastName: 'John',
   firstName: 'Doe',
@@ -30,12 +52,19 @@ const ContactForm: React.FC = () => {
       (typeof document !== 'undefined' && getCookie('li_fat_id')) ||
       ''
 
-    setFormData({ ...formData, li_fat_id })
-  }, [formData])
+    setFormData((prevData) => ({ ...prevData, li_fat_id })) // Using functional update
+
+    window.analytics.identify(li_fat_id, {
+      li_fat_id: li_fat_id,
+    })
+
+    window.analytics.track('Page View')
+    //  }, []) // Empty dependency array ensures this runs only once when the component mounts
+  }, [formData.li_fat_id]) // Dependency on formData.li_fat_id
 
   // Begin Cookie routine
   // getcookie function
-  function getCookie(name) {
+  function getCookie(name: string): string | undefined {
     if (typeof document !== 'undefined') {
       let matches = document.cookie.match(
         new RegExp(
@@ -58,6 +87,28 @@ const ContactForm: React.FC = () => {
         `${process.env.REACT_APP_SERVER_URL}/submit-google-form`,
         formData
       )
+
+      const userEmail = formData.email
+      const li_fat_id = formData.li_fat_id
+      const firstName = formData.firstName
+      const lastName = formData.lastName
+      const title = formData.title
+      const company = formData.company
+      const countryCode = formData.countryCode
+      // Dreamdata will set userId and traits.li_fat_id based on formData.li_fat_id
+      window.analytics.identify(li_fat_id, {
+        email: userEmail,
+        first_name: firstName,
+        last_name: lastName,
+        title: title,
+        company: company,
+        country: countryCode,
+        li_fat_id: li_fat_id,
+      })
+
+      // Track the form submission event
+      window.analytics.track('Form Submit')
+
       console.log('Form submitted successfully')
       setSubmissionStatus('success')
       setIsModalOpen(true)
@@ -69,7 +120,10 @@ const ContactForm: React.FC = () => {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    setFormData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    })) // Using functional update
   }
 
   const closeModal = () => {
@@ -77,19 +131,7 @@ const ContactForm: React.FC = () => {
   }
 
   const handleResetForm = () => {
-    setFormData({
-      ...formData,
-      lastName: '',
-      firstName: '',
-      email: '',
-      title: '',
-      company: '',
-      countryCode: '',
-      currency: '',
-      value: '',
-      acxiomId: '',
-      oracleMoatId: '',
-    })
+    setFormData(initialFormData)
   }
 
   return (
