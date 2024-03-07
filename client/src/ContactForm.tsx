@@ -1,8 +1,6 @@
 // src/ContactForm.tsx
-
-// Import necessary dependencies and components
 import React, { useState, useEffect, useRef } from 'react'
-import './App.css'
+import './App.css' // Importing styles
 import axios from 'axios'
 import Modal from './Modal' // Assuming you have a Modal component
 
@@ -28,7 +26,6 @@ interface FormData {
   oracleMoatId: string
 }
 
-// Initial form data
 const initialFormData: FormData = {
   li_fat_id: '123456',
   lastName: 'John',
@@ -44,30 +41,26 @@ const initialFormData: FormData = {
 }
 
 const ContactForm: React.FC = () => {
-  // State hooks for form data, submission status, and modal visibility
   const [formData, setFormData] = useState(initialFormData)
   const [submissionStatus, setSubmissionStatus] = useState<string | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const isAnalyticsExecuted = useRef(false)
 
-  // Effect hook to fetch data and execute analytics
   useEffect(() => {
     const fetchData = async () => {
-      // Retrieve li_fat_id from query params or cookie
       const li_fat_id =
         (typeof window !== 'undefined' &&
           new URLSearchParams(window.location.search).get('li_fat_id')) ||
         (typeof document !== 'undefined' && getCookie('li_fat_id')) ||
         ''
 
-      // Update form data with li_fat_id
       if (li_fat_id && !isAnalyticsExecuted.current) {
         setFormData((prevData) => ({ ...prevData, li_fat_id }))
 
-        // Identify user and track page view
         window.analytics.identify(li_fat_id, {
           li_fat_id: li_fat_id,
         })
+
         window.analytics.track('Page View')
 
         isAnalyticsExecuted.current = true
@@ -77,7 +70,8 @@ const ContactForm: React.FC = () => {
     fetchData()
   }, []) // Empty dependency array ensures it runs only once
 
-  // Cookie routine: getCookie function
+  // Begin Cookie routine
+  // getcookie function
   function getCookie(name: string): string | undefined {
     if (typeof document !== 'undefined') {
       let matches = document.cookie.match(
@@ -91,19 +85,17 @@ const ContactForm: React.FC = () => {
     }
     return undefined
   }
+  // End Cookie routine
 
-  // Form submission handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     try {
-      // Send a POST request to the server with form data
       await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/submit-google-form`,
         formData
       )
 
-      // Extract form data for analytics
       const userEmail = formData.email
       const li_fat_id = formData.li_fat_id
       const firstName = formData.firstName
@@ -111,8 +103,7 @@ const ContactForm: React.FC = () => {
       const title = formData.title
       const company = formData.company
       const countryCode = formData.countryCode
-
-      // Identify user and track form submission event
+      // Dreamdata will set userId and traits.li_fat_id based on formData.li_fat_id
       window.analytics.identify(li_fat_id, {
         email: userEmail,
         first_name: firstName,
@@ -122,54 +113,151 @@ const ContactForm: React.FC = () => {
         country: countryCode,
         li_fat_id: li_fat_id,
       })
+
+      // Track the form submission event
       window.analytics.track('Form Submit')
 
-      // Update state and open success modal
       console.log('Form submitted successfully')
       setSubmissionStatus('success')
       setIsModalOpen(true)
     } catch (error) {
-      // Handle form submission error
       console.error('Error submitting form:', error)
       setSubmissionStatus('error')
       setIsModalOpen(true)
     }
   }
 
-  // Input change handler
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Update form data based on input changes
     setFormData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
-    }))
+    })) // Using functional update
   }
 
-  // Modal close handler
   const closeModal = () => {
     setIsModalOpen(false)
   }
 
-  // Reset form handler
   const handleResetForm = () => {
     setFormData(initialFormData)
   }
 
-  // Render the contact form component
   return (
     <>
       <div className='App'>
         <form className='centered-form' onSubmit={handleSubmit}>
-          {/* Form fields */}
-          {/* ... (omitted for brevity) ... */}
+          <h1 className='form-title'>LinkedIn Online CAPI with Dreamdata</h1>
 
-          {/* Form submission and reset buttons */}
+          <label>
+            li_fat_id:
+            <span className='red-text'>{formData.li_fat_id}</span>
+          </label>
+
+          <label>
+            Last Name:
+            <input
+              type='text'
+              name='lastName'
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            First Name:
+            <input
+              type='text'
+              name='firstName'
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            Email:
+            <input
+              type='text'
+              name='email'
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            Title:
+            <input
+              type='text'
+              name='title'
+              value={formData.title}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            Company:
+            <input
+              type='text'
+              name='company'
+              value={formData.company}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            Country Code:
+            <input
+              type='text'
+              name='countryCode'
+              value={formData.countryCode}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            Currency:
+            <input
+              type='text'
+              name='currency'
+              value={formData.currency}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            Value:
+            <input
+              type='text'
+              name='value'
+              value={formData.value}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            Acxiom ID:
+            <input
+              type='text'
+              name='acxiomId'
+              value={formData.acxiomId}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            Oracle Moat ID:
+            <input
+              type='text'
+              name='oracleMoatId'
+              value={formData.oracleMoatId}
+              onChange={handleChange}
+            />
+          </label>
+
           <button type='submit'>Submit</button>
           <button type='button' onClick={handleResetForm}>
             Reset Form
           </button>
 
-          {/* Form submission info */}
           <p>
             All leads are submitted in this{' '}
             <a
@@ -182,7 +270,7 @@ const ContactForm: React.FC = () => {
           </p>
         </form>
 
-        {/* Modal component for displaying submission status */}
+        {/* Modal Component */}
         <Modal
           isOpen={isModalOpen}
           onClose={closeModal}
@@ -199,5 +287,4 @@ const ContactForm: React.FC = () => {
   )
 }
 
-// Export the ContactForm component as the default export
 export default ContactForm
