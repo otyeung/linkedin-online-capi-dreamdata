@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Dreamdata Analytics Script -->
     <script>
       !(function () {
+        // Initialize Dreamdata Analytics if not already defined
         window.analytics || (window.analytics = []),
           (window.analytics.methods = [
             'identify',
@@ -28,12 +30,14 @@
               return t.unshift(a), window.analytics.push(t), window.analytics
             }
           })
+        // Assign analytics methods to window.analytics
         for (var a = 0; a < window.analytics.methods.length; a++) {
           var t = window.analytics.methods[a]
           window.analytics[t] = window.analytics.factory(t)
         }
         ;(analytics.load = function (a, t) {
           if (!document.getElementById('dreamdata-analytics')) {
+            // Create a script element for Dreamdata Analytics
             ;(t = t || 'cdn.dreamdata.cloud'),
               (window.__DD_TEMP_ANALYTICS__ = window.analytics)
             var i = document.createElement('script')
@@ -42,6 +46,7 @@
               (i.type = 'text/javascript'),
               (i.src =
                 'https://' + t + '/scripts/analytics/v1/dreamdata.min.js'),
+              // Initialize Dreamdata Analytics when the script is loaded
               i.addEventListener(
                 'load',
                 function (i) {
@@ -60,14 +65,20 @@
                 },
                 !1
               )
+            // Append the script element to the document
             var n = document.getElementsByTagName('script')[0]
             n.parentNode.insertBefore(i, n)
           }
         }),
+          // Load Dreamdata Analytics with the provided API key
           analytics.load('9e037f84-fecb-40c5-88b2-1871bc190275'),
+          // Track a pageview after loading
           analytics.page()
       })()
     </script>
+    <!-- End Dreamdata Analytics Script -->
+
+    <!-- Meta tags for character set, favicon, viewport, and theme color -->
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -78,11 +89,18 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <!-- Title of the web page -->
     <title>LinkedIn Online CAPI with Dreamdata</title>
   </head>
   <body>
+    <!-- Display a message if JavaScript is disabled -->
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <!-- Root div for React application -->
     <div id="root"></div>
+
+    <!-- LinkedIn Analytics Script -->
     <script type="text/javascript">
       _linkedin_partner_id = '5806284'
       window._linkedin_data_partner_ids =
@@ -105,6 +123,9 @@
         s.parentNode.insertBefore(b, s)
       })(window.lintrk)
     </script>
+    <!-- End LinkedIn Analytics Script -->
+
+    <!-- LinkedIn Pixel for noscript -->
     <noscript>
       <img
         height="1"
@@ -114,5 +135,6 @@
         src="https://px.ads.linkedin.com/collect/?pid=5806284&fmt=gif"
       />
     </noscript>
+    <!-- End LinkedIn Pixel for noscript -->
   </body>
 </html>

@@ -1,3 +1,4 @@
+/* Styles for the main container */
 .App {
   display: flex;
   flex-direction: column;
@@ -6,57 +7,64 @@
   height: 140vh;
 }
 
+/* Styles for the form container */
 .centered-form {
   text-align: left;
   width: 300px;
-  margin-top: 20px; /* Adjust margin as needed */
+  margin-top: 20px;
 }
 
+/* Styles for form labels */
 .centered-form label {
   display: block;
   margin-bottom: 10px;
 }
 
+/* Styles for form inputs */
 .centered-form input {
   width: 150%;
   padding: 8px;
-  border: 1px solid #ccc; /* Add this line to display a border */
+  border: 1px solid #ccc;
 }
 
+/* Styles for form buttons */
 .centered-form button {
   width: 150%;
   padding: 12px;
   margin-top: 10px;
-  font-weight: bold; /* Add this line to make the text bold */
+  font-weight: bold;
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s; /* Add a smooth transition effect */
+  transition: background-color 0.3s;
 }
 
+/* Styles for form buttons on hover */
 .centered-form button:hover {
-  background-color: #45a049; /* Change the hover background color as desired */
+  background-color: #45a049;
 }
 
+/* Styles for form links */
 .centered-form p a {
-  color: #3498db; /* Change the color to your desired value */
+  color: #3498db;
   text-decoration: none;
   font-weight: bold;
 }
 
+/* Styles for form links on hover */
 .centered-form p a:hover {
-  text-decoration: underline; /* Add underline on hover if desired */
+  text-decoration: underline;
 }
 
+/* Styles for form title */
 .form-title {
   margin-bottom: 20px;
-  font-weight: bold; /* Add this line to make the text bold */
+  font-weight: bold;
 }
 
-/* Add this to the end of App.css */
-
+/* Styles for modal overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -69,22 +77,23 @@
   align-items: center;
 }
 
-/* Update the modal styling */
-
+/* Styles for modal container */
 .modal {
   background: #fff;
   padding: 20px;
   border-radius: 5px;
   text-align: center;
-  width: 50%; /* Change the width to your desired value, here it's set to 60% */
+  width: 50%;
 }
 
+/* Styles for modal buttons */
 .modal button {
-  width: 100px; /* Adjust width as needed */
-  padding: 8px; /* Adjust padding as needed for the desired size */
-  font-size: 14px; /* Adjust font size as needed */
+  width: 100px;
+  padding: 8px;
+  font-size: 14px;
 }
 
+/* Styles for red text */
 .red-text {
   color: red;
 }
