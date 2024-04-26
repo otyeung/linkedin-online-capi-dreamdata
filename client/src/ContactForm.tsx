@@ -59,9 +59,9 @@ const ContactForm: React.FC = () => {
         setFormData((prevData) => ({ ...prevData, li_fat_id }))
 
         // Identify the user with their li_fat_id
-        window.analytics.identify(null, {
-          li_fat_id: li_fat_id,
-        })
+        // window.analytics.identify(null, {
+        //   li_fat_id: li_fat_id,
+        // })
 
         // Track the Page view event
         window.analytics.track('Page View')
@@ -107,8 +107,10 @@ const ContactForm: React.FC = () => {
       const company = formData.company
       const countryCode = formData.countryCode
 
-      // Dreamdata will set userId and traits.li_fat_id based on formData.li_fat_id
-      // Send li_fat_id and email as well as other user info fields if available
+      /* li_fat_id is automatically picked up from url of track or page event.
+      The rest are automatically picked up from identify traits object.
+      The variable names recognised in traits are name, first_name, last_name, title, seniority, website, domain, role, country.
+      country and company are also enriched with our reverse ip look up database */
       window.analytics.identify(null, {
         //      li_fat_id: li_fat_id,
         email: userEmail,
