@@ -110,7 +110,7 @@ const ContactForm: React.FC = () => {
       // Dreamdata will set userId and traits.li_fat_id based on formData.li_fat_id
       // Send li_fat_id and email as well as other user info fields if available
       window.analytics.identify(null, {
-        li_fat_id: li_fat_id,
+        //      li_fat_id: li_fat_id,
         email: userEmail,
         first_name: firstName,
         last_name: lastName,
